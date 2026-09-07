@@ -179,8 +179,9 @@ onUnmounted(() => {
   text-decoration-color: color-mix(in srgb, var(--vp-c-text-3) 50%, transparent); text-underline-offset: 5px;
 }
 .profile-project-row-description { color: var(--vp-c-text-2); }
-.profile-project-row-arrow { font-size: 12px; color: var(--vp-c-brand-1); }
-.profile-project-row:hover strong, .profile-project-row:hover .profile-project-row-arrow { color: var(--vp-c-brand-1); }
+.profile-project-row-arrow { font-size: 12px; color: var(--vp-c-brand-1); display: inline-block; transition: transform .18s ease; }
+.profile-project-row:hover strong { color: var(--vp-c-brand-1); }
+.profile-project-row:hover .profile-project-row-arrow { color: var(--vp-c-brand-1); transform: translate(2px, -2px); }
 .profile-project-row:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; }
 .profile-project-card {
   --card-angle: -1deg;
@@ -206,11 +207,15 @@ onUnmounted(() => {
 }
 .profile-project-card:nth-child(2n)::after { left: 49%; transform: rotate(8deg); }
 .profile-project-card:hover { transform: translateY(-4px) rotate(0); filter: drop-shadow(2px 6px 2px color-mix(in srgb, var(--vp-c-text-1) 15%, transparent)); }
-.profile-project-card:active { transform: translateY(-1px) rotate(0); }
+.profile-project-card:active { transform: translateY(-1px) rotate(0) scale(0.98); }
 .profile-project-card:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 5px; }
 .profile-project-media {
   position: relative; overflow: hidden; background: var(--vp-c-bg);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   --project-tilt-x: 0deg; --project-tilt-y: 0deg; --project-shift-x: 0px; --project-shift-y: 0px; --project-scale: 1;
+}
+:root.dark .profile-project-media {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 .profile-project-media > img {
   display: block; width: 100%; aspect-ratio: 16 / 9; margin: 0; border: 0; border-radius: 0; object-fit: cover; cursor: inherit;
@@ -223,8 +228,9 @@ onUnmounted(() => {
 .profile-project-domain { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .profile-project-title { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .profile-project-title strong { font-size: 15px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
-.profile-project-title span { flex: 0 0 auto; font-size: 16px; color: var(--vp-c-brand-1); }
+.profile-project-title span { flex: 0 0 auto; font-size: 16px; color: var(--vp-c-brand-1); display: inline-block; transition: transform .18s ease; }
 .profile-project-card:hover .profile-project-title strong { color: var(--vp-c-brand-1); }
+.profile-project-card:hover .profile-project-title span { transform: translate(2px, -2px); }
 .profile-project-copy p { margin: 9px 0 0; font-size: 13px; line-height: 1.75; color: var(--vp-c-text-2); }
 .profile-projects.is-motion-disabled .profile-project-media > img { transform: none; transition: none; }
 .profile-projects.is-motion-disabled .profile-project-card { transition: none; }

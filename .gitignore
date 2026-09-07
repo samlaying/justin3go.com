@@ -132,3 +132,8 @@ dist
 # vitepress
 docs/.vitepress/dist
 cache
+
+# local agent symlinks and editor configs
+.claude/
+agent/
+.cursor/
