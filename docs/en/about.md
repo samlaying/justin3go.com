@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About Me
-description: Justin3go's profile, life, experience, projects, and contact information.
+description: sam's profile, life, experience, projects, and contact information.
 editLink: false
 lastUpdated: false
 isNoComment: true

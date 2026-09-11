@@ -25,9 +25,9 @@
 [![changelog](https://img.shields.io/badge/changelog-→-0052CC?style=for-the-badge&logo=ReSharper&logoColor=white)](./CHANGELOG.md)
 
 
-[![PR Welcome](https://img.shields.io/badge/PR-Welcome-EA4AAA?style=for-the-badge&logo=git&logoColor=white)](https://github.com/Justin3go/justin3go.com/pulls)
-[![Request-Feature](https://img.shields.io/badge/Request-Feature-007BFF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Justin3go/justin3go.com/issues/new/choose)
-[![Report-Bug](https://img.shields.io/badge/Report-Bug-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Justin3go/justin3go.com/issues/new/choose)
+[![PR Welcome](https://img.shields.io/badge/PR-Welcome-EA4AAA?style=for-the-badge&logo=git&logoColor=white)](https://github.com/samlaying/justin3go.com/pulls)
+[![Request-Feature](https://img.shields.io/badge/Request-Feature-007BFF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/samlaying/justin3go.com/issues/new/choose)
+[![Report-Bug](https://img.shields.io/badge/Report-Bug-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/samlaying/justin3go.com/issues/new/choose)
 
 ![demo](./images/demo.png)
 
@@ -47,7 +47,7 @@
 ## 开发
 
 ```bash
-git clone git@github.com:Justin3go/justin3go.com.git
+git clone git@github.com:samlaying/justin3go.com.git
 cd FAV0
 
 npm i -g pnpm # 如果需要

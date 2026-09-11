@@ -7,7 +7,7 @@ const sideBarConfig = createSideBarEN();
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Justin3go",
+  title: "sam",
   description: "A T-shaped front-end developer who is committed to deepening expertise in the technical field, focuses on independent development and AI, enjoys working with Vue.js and Nest.js, and has some knowledge of Python, search engines, NLP, Web3, and back-end development.",
   lang: "en-US", //语言
 
@@ -21,19 +21,19 @@ export default defineConfig({
 			{ text: "Sponsor", link: "/en/support-me", activeMatch: '/en/support-me' },
     ],
     footer: {
-      message: 'Copyright © 2022-present <a href="https://justin3go.com/en/">Justin3go</a>.' +
+      message: 'Copyright © 2022-present <a href="https://justin3go.com/en/">sam</a>.' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/#projects">Projects</a>' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/#contact">Contact</a>' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/friends">Friends</a>',
       
-      // copyright: 'Copyright © 2022-present <a href="https://justin3go.com/about">Justin3go</a>.',
+      // copyright: 'Copyright © 2022-present <a href="https://justin3go.com/about">sam</a>.',
     },
 
     sidebar: sideBarConfig,
 
     socialLinks: [
       { icon: 'x', link: 'https://x.com/Justin1024go' },
-      { icon: 'github', link: 'https://github.com/Justin3go/justin3go.com' },
+      { icon: 'github', link: 'https://github.com/samlaying/justin3go.com' },
       {
         icon: {
           svg: '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>RSS</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg>',
@@ -43,7 +43,7 @@ export default defineConfig({
     ],
 
     editLink: {
-      pattern: "https://github.com/Justin3go/justin3go.com/edit/master/docs/:path"
+      pattern: "https://github.com/samlaying/justin3go.com/edit/release/docs/:path"
     },
   },
 })

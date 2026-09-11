@@ -4,7 +4,7 @@ editLink: false
 lastUpdated: false
 isNoBackBtn: true
 ---
-# Justin3go的朋友们
+# sam的朋友们
 
 > 认识一些有趣的朋友～ (排名不分先后)
 

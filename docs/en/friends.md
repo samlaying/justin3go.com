@@ -4,7 +4,7 @@ editLink: false
 lastUpdated: false
 isNoBackBtn: true
 ---
-# Justin3go's Friends
+# sam's Friends
 
 > Meet some interesting friends.
 

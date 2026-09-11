@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: doc
 title: Blog
-description: Justin3go's writing on AI, indie hacking, front-end engineering, and making products.
+description: sam's writing on AI, indie hacking, front-end engineering, and making products.
 editLink: false
 lastUpdated: false
 isNoComment: true

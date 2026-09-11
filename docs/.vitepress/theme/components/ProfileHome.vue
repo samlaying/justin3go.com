@@ -18,7 +18,7 @@ let frame = 0
 let hashFrame = 0
 
 const copy = computed(() => en.value ? {
-  hello: 'Hi, I’m Justin3go.', role: 'Independent maker · Beijing, China',
+  hello: 'Hi, I’m sam.', role: 'Independent maker · Beijing, China',
   headline: ['Little pieces of', 'work & life.'],
   intro: 'Write code. Collect moments.',
   detail: 'Independent projects, photography, and badminton. Turning curiosity into things I make, and ordinary days into moments I keep.',
@@ -36,7 +36,7 @@ const copy = computed(() => en.value ? {
   motto: 'Execution wins. Persistence compounds.', journal: 'Read blog',
   photography: 'PHOTOGRAPHY', badminton: 'BADMINTON', top: 'Back to top', social: ['WeChat', 'X / Twitter', 'GitHub', 'Juejin', 'WeChat articles']
 } : {
-  hello: 'Hi，我是 Justin3go。', role: '独立产品创造者 · 中国北京',
+  hello: 'Hi，我是 sam。', role: '独立产品创造者 · 中国北京',
   headline: ['把想法，', '拼成日常。'],
   intro: '写代码，也收集生活的碎片。',
   detail: '独立开发、摄影、羽毛球。把好奇心做成作品，把普通的一天认真收藏。',
@@ -55,7 +55,7 @@ const copy = computed(() => en.value ? {
   photography: 'PHOTOGRAPHY / 摄影', badminton: 'BADMINTON / 羽毛球', top: '回到顶部', social: ['微信', 'X / 推特', 'GitHub', '掘金', '公众号']
 })
 const sections = ['projects', 'about', 'journey', 'contact']
-const socialUrls = ['https://oss.justin3go.com/weixin.jpg', 'https://x.com/Justin1024go', 'https://github.com/Justin3go', 'https://juejin.cn/user/220366354020749/posts', 'https://oss.justin3go.com/wxgzh.jpg']
+const socialUrls = ['https://oss.justin3go.com/weixin.jpg', 'https://x.com/Justin1024go', 'https://github.com/samlaying', 'https://juejin.cn/user/220366354020749/posts', 'https://oss.justin3go.com/wxgzh.jpg']
 
 function readScroll() {
   frame = 0
@@ -129,7 +129,7 @@ onUnmounted(() => {
     <section class="home-hero" data-paper-section="intro" aria-labelledby="hero-title">
       <span id="关于我" class="anchor-alias"></span><span id="about-me" class="anchor-alias"></span>
       <div class="hero-copy">
-        <div class="identity"><img :src="withBase('/ava.png')" alt="Justin3go" width="42" height="42"><div><p>{{ copy.hello }}</p><span>{{ copy.role }}</span></div></div>
+        <div class="identity"><img :src="withBase('/ava.png')" alt="sam" width="42" height="42"><div><p>{{ copy.hello }}</p><span>{{ copy.role }}</span></div></div>
         <p class="hero-kicker">{{ en ? 'A SMALL COLLECTION OF WORK & LIFE' : '一些创造，一些生活，一直保持好奇。' }}</p>
         <h1 id="hero-title"><span class="title-paper">{{ copy.headline[0] }}</span><span class="title-paper hero-accent">{{ copy.headline[1] }}</span></h1>
         <p class="hero-intro">{{ copy.intro }}</p>
@@ -208,11 +208,11 @@ onUnmounted(() => {
         <p class="eyebrow">04 / SAY HELLO</p><h2 id="contact-title">{{ copy.contactTitle }}</h2><p class="contact-intro">{{ copy.contactIntro }}</p>
         <a class="email-link" href="mailto:just@justin3go.com">just@justin3go.com <span aria-hidden="true">↗</span></a>
         <div class="social-links"><template v-for="(url, i) in socialUrls" :key="url"><ContactImageDialog v-if="i === 0 || i === 4" :src="url" :label="copy.social[i]" :en="en" /><a v-else :href="url" target="_blank" rel="noopener noreferrer">{{ copy.social[i] }} <span aria-hidden="true">↗</span></a></template></div>
-        <p class="letter-signature">See you around,<br><span>Justin3go</span></p>
+        <p class="letter-signature">See you around,<br><span>sam</span></p>
       </div>
     </section>
 
-    <footer class="home-footer"><span>Justin3go <span class="footer-dot">·</span> {{ copy.motto }}</span><a class="vp-raw" href="#profile-top" @click="jumpTo($event, 'profile-top')">{{ copy.top }} ↑</a></footer>
+    <footer class="home-footer"><span>sam <span class="footer-dot">·</span> {{ copy.motto }}</span><a class="vp-raw" href="#profile-top" @click="jumpTo($event, 'profile-top')">{{ copy.top }} ↑</a></footer>
     <PaperJourney :motion="motion" :locale="locale" />
   </main>
 </template>

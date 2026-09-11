@@ -30,7 +30,7 @@
     </div>
   </section>
   <div class="support-me hollow-text source-han-serif" aria-hidden="true">Support Me</div>
-  <div class="my-name hollow-text source-han-serif" aria-hidden="true">I'm Justin3go</div>
+  <div class="my-name hollow-text source-han-serif" aria-hidden="true">I'm sam</div>
 </template>
 
 <script setup lang="ts">

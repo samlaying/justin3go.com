@@ -19,14 +19,14 @@ const current = ref<JourneyScene>(props.inlineScene ?? 'intro')
 const inHero = ref(true)
 const sceneNumber = computed(() => JOURNEY_SCENES.indexOf(current.value) + 1)
 const descriptions = computed(() => props.locale === 'en' ? {
-  intro: ['Hi, I’m Justin3go.', 'Welcome to my little corner of the world.'],
+  intro: ['Hi, I’m sam.', 'Welcome to my little corner of the world.'],
   code: ['A little idea, made real.', 'One line of code at a time.'],
   photo: ['A different point of view.', 'There is a story in the everyday.'],
   badminton: ['Find another rhythm.', 'Eyes on the next shot.'],
   walk: ['Still on the way.', 'Every step becomes part of the story.'],
   chat: ['And now, over to you.', 'Every conversation is a new beginning.'],
 } : {
-  intro: ['你好，我是 Justin3go。', '很高兴，在这里遇见你。'],
+  intro: ['你好，我是 sam。', '很高兴，在这里遇见你。'],
   code: ['把小想法，写成日常。', '故事，从一行代码开始。'],
   photo: ['换个角度，看世界。', '平凡的一天，也值得留住。'],
   badminton: ['给生活，换个节奏。', '下一拍，继续全力以赴。'],

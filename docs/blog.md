@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: doc
 title: 博客
-description: Justin3go 的技术博客，记录 AI、独立开发、前端工程与持续创造。
+description: sam 的技术博客，记录 AI、独立开发、前端工程与持续创造。
 editLink: false
 lastUpdated: false
 isNoComment: true
