@@ -21,7 +21,7 @@ Turn the author's idea + source material into a finished Chinese post on justin3
 | Signal | Action |
 |---|---|
 | Idea and/or 素材 (pasted text, file paths, URLs), user wants an article | Full workflow below |
-| An existing post needs translate / rename / summary | Stop — that is `blog-post-processor` |
+| An existing post needs translate / rename / summary / edit / delete / search (查改删) | Stop — that is `blog-post-processor` |
 | User is just discussing a topic, no article requested | Do not fire |
 
 ## Step 1: Collect the Material
