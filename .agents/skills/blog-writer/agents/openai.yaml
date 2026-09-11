@@ -1,0 +1,5 @@
+interface:
+  display_name: "Blog Writer"
+  short_description: "Turn ideas and 素材 into finished Chinese blog posts"
+policy:
+  allow_implicit_invocation: true

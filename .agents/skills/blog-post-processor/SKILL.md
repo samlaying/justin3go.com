@@ -12,6 +12,7 @@ Automate the full publishing pipeline for Chinese blog posts on this VitePress b
 | Signal | Action |
 |--------|--------|
 | User provides a Chinese `.md` post | Full pipeline: rename + frontmatter + summary + translate |
+| Post was created by `blog-writer` (slug/frontmatter/summary already done) | Translation only (Steps 6-7) |
 | User asks to translate a post | Translation only (with summary if missing) |
 | User asks to add AI summary | Add summary to existing post(s) |
 | User asks to rename a post | Rename with English slug |
