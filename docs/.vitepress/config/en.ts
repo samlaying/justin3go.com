@@ -8,7 +8,7 @@ const sideBarConfig = createSideBarEN();
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "sam",
-  description: "A T-shaped front-end developer who is committed to deepening expertise in the technical field, focuses on independent development and AI, enjoys working with Vue.js and Nest.js, and has some knowledge of Python, search engines, NLP, Web3, and back-end development.",
+  description: "An economics undergraduate interning as an AI product manager, curious about AI and product design, documenting what I learn along the way.",
   lang: "en-US", //语言
 
   themeConfig: {

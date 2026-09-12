@@ -19,19 +19,15 @@ const props = withDefaults(defineProps<{ locale?: "zh" | "en" }>(), {
 });
 
 const zhItems = [
-	{ time: "2001", title: "故事开始", description: "出生。从这里开始，慢慢认识世界。" },
-	{ time: "2019 — 2023", title: "计算机科学与技术", description: "本科就读计算机科学与技术，开始探索前端与产品开发。" },
-	{ time: "2022.07 — 2022.10", title: "互联网大厂 · 前端实习", description: "走进真实业务，学习团队协作与产品交付。" },
-	{ time: "2023.03 — 2025.09", title: "国企 · 前端工程师", description: "积累工程经验，也开始把个人想法做成独立产品。" },
-	{ time: "2025.09 — 至今", title: "互联网大厂 · 前端工程师", description: "继续打磨前端工程能力，探索 AI 与独立开发的更多可能。" },
+	{ time: "2004", title: "故事开始", description: "出生。从这里开始，慢慢认识世界。" },
+	{ time: "2023 — 2027", title: "经济学", description: "本科就读经济学。" },
+	{ time: "2025.09 — 至今", title: "AI 产品经理实习", description: "走进真实业务，学习团队协作与产品交付。" },
 ];
 
 const enItems = [
-	{ time: "2001", title: "The story begins", description: "Born. The start of a lifelong curiosity about the world." },
-	{ time: "2019 — 2023", title: "Computer Science", description: "Studied Computer Science and began exploring frontend engineering and product development." },
-	{ time: "2022.07 — 2022.10", title: "Frontend intern · Internet company", description: "Joined a real product team and learned how to collaborate and ship." },
-	{ time: "2023.03 — 2025.09", title: "Frontend engineer · State-owned enterprise", description: "Built engineering experience while turning personal ideas into independent products." },
-	{ time: "2025.09 — Present", title: "Frontend engineer · Internet company", description: "Deepening my frontend craft and exploring what AI can bring to independent product development." },
+	{ time: "2004", title: "The story begins", description: "Born. The start of a lifelong curiosity about the world." },
+	{ time: "2023 — 2027", title: "Economics", description: "Studied Economics as an undergraduate." },
+	{ time: "2025.09 — Present", title: "AI product manager intern", description: "Joined a real product team and learned how to collaborate and ship." },
 ];
 
 const items = computed(() => [...(props.locale === "en" ? enItems : zhItems)].reverse());

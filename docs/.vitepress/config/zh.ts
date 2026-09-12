@@ -8,7 +8,7 @@ const sideBarConfig = createSideBarZH();
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "sam",
-  description: "坚持深耕技术领域的 T 型前端程序员, 关注独立开发与 AI，喜欢 Vuejs、Nestjs, 还会点 Python、搜索引擎、NLP、Web3、后端",
+  description: "经济学本科在读，AI 产品经理实习中，关注 AI 与产品设计，在这里记录学习与思考",
   lang: "zh-Hans", //语言
 
   themeConfig: {

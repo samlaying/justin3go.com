@@ -15,12 +15,6 @@ footer: false
 If you enjoy my work, feel free to support me in any way, as it will be the motivation for me to continue creating.
 </p>
 
-## Sponsors
-
-Note: Commercial sponsorships are not accepted.
-
-[Katon](https://hellokaton.me/)、\*\*Hua、Tom\*\*🐯
-
 ## Thank You Notes
 
 - Nice article, quite interesting. (Translated from Chinese)

@@ -8,7 +8,7 @@ const hostname = "https://justin3go.com";
 export async function createRssFileZH(config: SiteConfig) {
   const feed = new Feed({
     title: 'sam',
-    description: '坚持深耕技术领域的 T 型前端程序员, 关注独立开发，喜欢 Vuejs、Nestjs, 还会点 Python、搜索引擎、NLP、Web3、后端',
+    description: '经济学本科在读，AI 产品经理实习中，关注 AI 与产品设计，在这里记录学习与思考',
     id: hostname,
     link: hostname,
     language: "zh-Hans",
@@ -53,7 +53,7 @@ export async function createRssFileZH(config: SiteConfig) {
 export async function createRssFileEN(config: SiteConfig) {
   const feed = new Feed({
     title: "sam",
-    description: "A T-shaped front-end developer who is committed to deepening expertise in the technical field, focuses on independent development, enjoys working with Vue.js and Nest.js, and has some knowledge of Python, search engines, NLP, Web3, and back-end development.",
+    description: "An economics undergraduate interning as an AI product manager, curious about AI and product design, documenting what I learn along the way.",
     id: hostname,
     link: hostname,
     language: "en-US",
