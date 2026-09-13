@@ -1,4 +1,5 @@
 import { createContentLoader } from 'vitepress'
+import { inferBlogType, type BlogType } from './utils/blogFilters'
 
 interface Post {
   title: string
@@ -10,6 +11,7 @@ interface Post {
     monthDay: string
   }
   tags: string[]
+  type?: Exclude<BlogType, 'all'>
   excerpt: string | undefined
 }
 
@@ -24,7 +26,8 @@ export default createContentLoader('en/posts/**/*.md', {
         url,
         excerpt,
         date: formatDate(frontmatter.date),
-        tags: frontmatter.tags
+        tags: frontmatter.tags,
+        type: inferBlogType({ type: frontmatter.type, sourceFile: url, title: frontmatter.title, tags: frontmatter.tags })
       }))
       .sort((a, b) => b.date.time - a.date.time)
   }

@@ -75,6 +75,11 @@ export default defineConfig({
   },
 
   vite: {
+    build: {
+      // VitePress emits one page chunk per Markdown document. Some long-form
+      // notes are intentionally larger than the default 500 KB warning limit.
+      chunkSizeWarningLimit: 700,
+    },
     plugins: [
       // ...
       AutoImport({

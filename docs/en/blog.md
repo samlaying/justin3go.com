@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: doc
 title: Blog
-description: sam's writing on AI, indie hacking, front-end engineering, and making products.
+description: sam's blog on product analysis, AI practice, technical learning, code, and LLM papers.
 editLink: false
 lastUpdated: false
 isNoComment: true
@@ -10,6 +10,11 @@ isNoBackBtn: true
 ---
 
 <!-- 之所以将代码写在 md 里面，而非单独封装为 Vue 组件，因为 aside 不会动态刷新，参考 https://github.com/vuejs/vitepress/issues/2686 -->
+<nav class="blog-filters" aria-label="Blog categories">
+  <a v-for="item in BLOG_TYPES" :key="item.value" :href="filterUrl(item.value)" :aria-current="selectedType === item.value ? 'page' : undefined">
+    {{ item.labelEn }}
+  </a>
+</nav>
 <template v-for="post in curPosts" :key="post.url">
   <h2 :id="post.title" class="post-title">
     <a :href="post.url">{{ post.title }}</a>
@@ -48,11 +53,10 @@ isNoBackBtn: true
 </div>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
-import { useRoute, useRouter } from "vitepress";
+import { ref, computed, watch } from "vue";
+import { useRoute } from "vitepress";
 // 非 Vue 组件需要手动引入
 import {
-	MessagePlugin,
 	PaginationProps,
 	Pagination as TPagination,
   Tag as TTag,
@@ -62,32 +66,38 @@ import enConfig from 'tdesign-vue-next/es/locale/en_US';
 
 import { data as posts } from "../.vitepress/theme/posts-en.data.mts";
 import { isMobile } from "../.vitepress/theme/utils/mobile.ts";
+import { BLOG_TYPES, filterPosts, getPage, getType, paginatePosts } from "../.vitepress/theme/utils/blogFilters.ts";
 
 const route = useRoute();
 
-const getPage = () => {
-  const search = route.query
-  const searchParams = new URLSearchParams(search);
-
-  return Number(searchParams.get("page") || "1");
-}
-
-const current = ref(getPage())
+const current = ref(1)
 const pageSize = ref(10);
-const total = ref(posts.length);
+const selectedType = computed(() => getType(route.query as Record<string, unknown>));
+const filteredPosts = computed(() => filterPosts(posts, selectedType.value));
+const totalPages = computed(() => paginatePosts(filteredPosts.value, 1, pageSize.value).totalPages);
+const total = computed(() => filteredPosts.value.length);
 
 // 在首页有page参数时，从NAV跳转到当前页，清空了参数，但没有刷新页面内容的问题，需要手动更新current
-const router = useRouter();
-router.onAfterRouteChange = (to) => {
-  current.value = getPage();
-}
+watch([() => route.query.page, () => route.query.type, totalPages], () => {
+  current.value = getPage(route.query as Record<string, unknown>, totalPages.value);
+}, { immediate: true });
 
 const curPosts = computed(() => {
-	return posts.slice(
-		(current.value - 1) * pageSize.value,
-		current.value * pageSize.value
-	);
+  return paginatePosts(filteredPosts.value, current.value, pageSize.value).items;
 });
+
+function filterUrl(type: string) {
+  const url = new URL(route.path, 'https://blog.invalid');
+  for (const [key, value] of Object.entries(route.query)) {
+    if (key !== 'type' && key !== 'page') {
+      for (const item of Array.isArray(value) ? value : [value]) url.searchParams.append(key, String(item));
+    }
+  }
+  if (type === 'all') url.searchParams.delete('type');
+  else url.searchParams.set('type', type);
+  url.searchParams.delete('page');
+  return `${url.pathname}${url.search}`;
+}
 
 const onCurrentChange: PaginationProps["onCurrentChange"] = (
 	index,
@@ -96,6 +106,8 @@ const onCurrentChange: PaginationProps["onCurrentChange"] = (
 	// MessagePlugin.success(`Go to page ${index}`);
 
 	const url = new URL(window.location as any);
+	if (selectedType.value === 'all') url.searchParams.delete('type');
+	else url.searchParams.set('type', selectedType.value);
 	url.searchParams.set("page", index.toString());
 	window.history.replaceState({}, "", url);
 
@@ -112,6 +124,28 @@ const onCurrentChange: PaginationProps["onCurrentChange"] = (
 	:deep(li) {
 		margin-top: 0px;
 	}
+}
+
+.blog-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 24px 0 8px;
+}
+
+.blog-filters a {
+	padding: 6px 12px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+	text-decoration: none;
+}
+
+.blog-filters a:hover,
+.blog-filters a[aria-current="page"] {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
 }
 
 .mr-2 {
