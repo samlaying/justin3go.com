@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { withBase } from 'vitepress'
 import PaperJourney from './PaperJourney.vue'
 import ProfileProjects from './ProfileProjects.vue'
+import ProfileNews from './ProfileNews.vue'
 import ProfileTimeline from './ProfileTimeline.vue'
 import ContactImageDialog from './ContactImageDialog.vue'
 
@@ -23,8 +24,9 @@ const copy = computed(() => en.value ? {
   intro: 'Write code. Collect moments.',
   detail: 'Independent projects, photography, and badminton. Turning curiosity into things I make, and ordinary days into moments I keep.',
   work: 'Explore my work', blog: 'Read the blog',
-  nav: ['Work', 'About', 'Journey', 'Contact'],
+  nav: ['Work', 'News', 'About', 'Journey', 'Contact'],
   workTitle: 'Made to be used.', workIntro: 'Small ideas, real products. A selection of the tools and experiments I keep building.',
+  newsTitle: 'What just happened in AI.', newsIntro: 'Model releases, product updates, and industry moves — each with my one-line take. Updated weekly.',
   aboutTitle: 'More than a screen.',
   about: 'My background is in software engineering. What keeps me going is turning a real problem into something useful, then making it a little better.',
   aboutMore: 'I enjoy open source and sharing what I learn. Finish something, learn from it, and keep going.',
@@ -41,8 +43,9 @@ const copy = computed(() => en.value ? {
   intro: '写代码，也收集生活的碎片。',
   detail: '独立开发、摄影、羽毛球。把好奇心做成作品，把普通的一天认真收藏。',
   work: '看看我的作品', blog: '阅读博客',
-  nav: ['作品', '关于', '经历', '联系'],
+  nav: ['作品', '新闻', '关于', '经历', '联系'],
   workTitle: '做些真正用得上的东西。', workIntro: '从一个小念头开始，做成可以打开、可以使用的产品。这里是我的一些实践。',
+  newsTitle: 'AI 圈，最近在发生什么。', newsIntro: '模型发布、产品更新与行业动态，附我的一句话点评。每周更新。',
   aboutTitle: '屏幕之外，也有热爱。',
   about: '我的职业背景是软件工程。比起罗列使用过的框架，我更在意有没有解决真实问题，把产品做出来，再一点点打磨好。',
   aboutMore: '喜欢开源、分享，也习惯公开记录。先完成，再学习，然后继续创造。',
@@ -54,7 +57,7 @@ const copy = computed(() => en.value ? {
   motto: '赢在执行力，贵在坚持。', journal: '阅读博客',
   photography: 'PHOTOGRAPHY / 摄影', badminton: 'BADMINTON / 羽毛球', top: '回到顶部', social: ['微信', 'X / 推特', 'GitHub', '掘金', '公众号']
 })
-const sections = ['projects', 'about', 'journey', 'contact']
+const sections = ['projects', 'news', 'about', 'journey', 'contact']
 const socialUrls = ['https://oss.justin3go.com/weixin.jpg', 'https://x.com/Justin1024go', 'https://github.com/samlaying', 'https://juejin.cn/user/220366354020749/posts', 'https://oss.justin3go.com/wxgzh.jpg']
 
 function readScroll() {
@@ -160,11 +163,23 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <section id="news" class="home-section news-section" aria-labelledby="news-title">
+      <span id="AI动态" class="anchor-alias"></span><span id="ai-news" class="anchor-alias"></span>
+      <div class="news-copy">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">02 / AI RADAR</p>
+          <h2 id="news-title">{{ copy.newsTitle }}</h2>
+          <p class="section-description">{{ copy.newsIntro }}</p>
+        </header>
+        <ProfileNews :locale="locale" />
+      </div>
+    </section>
+
     <section id="about" class="home-section story-spread art-right about-section" data-paper-section="photo" aria-labelledby="about-title">
       <span id="生活之外" class="anchor-alias"></span><span id="beyond-work" class="anchor-alias"></span>
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="photo" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy">
-        <header class="section-heading" data-reveal><p class="eyebrow">02 / OFF THE SCREEN</p><h2 id="about-title">{{ copy.aboutTitle }}</h2><p class="section-description">{{ copy.about }}</p></header>
+        <header class="section-heading" data-reveal><p class="eyebrow">03 / OFF THE SCREEN</p><h2 id="about-title">{{ copy.aboutTitle }}</h2><p class="section-description">{{ copy.about }}</p></header>
         <article class="life-card camera-card" data-reveal>
           <div class="landscape-print" aria-hidden="true">
             <svg viewBox="0 0 440 180" fill="none"><path class="sky" d="M0 0h440v180H0z"/><circle cx="327" cy="52" r="23"/><path class="mountain-back" d="m0 143 103-82 86 73 78-87 173 132H0Z"/><path class="mountain-front" d="m0 168 155-74 96 69 72-46 117 62H0Z"/><path class="landscape-line" d="M26 157c118-3 184 2 274 7s87-8 113-11"/></svg>
@@ -179,7 +194,7 @@ onUnmounted(() => {
     <section id="play" class="home-section story-spread art-left play-section" data-paper-section="badminton" aria-labelledby="play-title">
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="badminton" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy badminton-card">
-        <p class="eyebrow">02 / A DIFFERENT RHYTHM</p>
+        <p class="eyebrow">03 / A DIFFERENT RHYTHM</p>
         <h2 id="play-title">{{ copy.sport }}</h2>
         <p class="section-description">{{ copy.sportBody }}</p>
         <div class="court-note">
@@ -195,7 +210,7 @@ onUnmounted(() => {
       <span id="经历" class="anchor-alias"></span><span id="experience" class="anchor-alias"></span>
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="walk" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy">
-        <header class="section-heading" data-reveal><p class="eyebrow">03 / THE JOURNEY</p><h2 id="journey-title">{{ copy.journeyTitle }}</h2><p class="section-description">{{ copy.journeyIntro }}</p></header>
+        <header class="section-heading" data-reveal><p class="eyebrow">04 / THE JOURNEY</p><h2 id="journey-title">{{ copy.journeyTitle }}</h2><p class="section-description">{{ copy.journeyIntro }}</p></header>
         <ProfileTimeline :locale="locale" /><p class="future-note">{{ copy.future }}</p>
       </div>
     </section>
@@ -205,7 +220,7 @@ onUnmounted(() => {
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="chat" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy contact-letter">
         <span class="letter-corner" aria-hidden="true">↗</span>
-        <p class="eyebrow">04 / SAY HELLO</p><h2 id="contact-title">{{ copy.contactTitle }}</h2><p class="contact-intro">{{ copy.contactIntro }}</p>
+        <p class="eyebrow">05 / SAY HELLO</p><h2 id="contact-title">{{ copy.contactTitle }}</h2><p class="contact-intro">{{ copy.contactIntro }}</p>
         <a class="email-link" href="mailto:just@justin3go.com">just@justin3go.com <span aria-hidden="true">↗</span></a>
         <div class="social-links"><template v-for="(url, i) in socialUrls" :key="url"><ContactImageDialog v-if="i === 0 || i === 4" :src="url" :label="copy.social[i]" :en="en" /><a v-else :href="url" target="_blank" rel="noopener noreferrer">{{ copy.social[i] }} <span aria-hidden="true">↗</span></a></template></div>
         <p class="letter-signature">See you around,<br><span>sam</span></p>
@@ -296,6 +311,8 @@ onUnmounted(() => {
 .life-card .eyebrow { margin-bottom: 9px; }.life-card h3 { font-size: 25px; line-height: 1.5; font-weight: 550; letter-spacing: -.03em; }.life-description { margin-top: 12px !important; font-size: 14px; line-height: 1.9; color: var(--vp-c-text-2); }
 .margin-note { margin: 32px 14px 0 !important; font-size: 13px; line-height: 1.9; color: var(--vp-c-text-2); }
 .play-section .spread-copy { padding-top: 42px; }
+.news-section { padding-block: 150px; }
+.news-copy { max-width: 780px; }
 .court-note { position: relative; margin-top: 42px; padding: 30px 30px 25px; background: var(--paper-sheet); transform: rotate(1.5deg); clip-path: polygon(0 1%,20% 0,37% 1%,58% 0,79% 2%,100% 0,99% 100%,80% 98%,59% 100%,39% 98%,18% 100%,0 99%); }
 .court-sketch { width: 100%; max-height: 180px; stroke: var(--home-accent); stroke-width: 1; opacity: .5; }.court-flight { stroke-width: 2; stroke-dasharray: 6 6; }
 .court-note p { font-size: 16px; margin-top: 15px; line-height: 1.6; }.court-note > span:last-child { font-size: 12px; color: var(--vp-c-text-2); line-height: 2; }.note-pin { position: absolute; width: 60px; height: 20px; background: color-mix(in srgb, var(--home-accent) 15%, var(--vp-c-bg)); top: 0; left: 38%; transform: rotate(-8deg); }
