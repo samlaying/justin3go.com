@@ -17,6 +17,8 @@ export default defineConfig({
 			{ text: "首页", link: "/", activeMatch: '^/$' },
 			{ text: "博客", link: "/blog", activeMatch: '^/blog(?:\\?.*)?$' },
 			{ text: "新闻", link: "/news", activeMatch: '^/news' },
+			{ text: "竞技场", link: "/arena", activeMatch: '^/arena' },
+			{ text: "产品体验", link: "/products", activeMatch: '^/products' },
 			{ text: "归档", link: "/archive", activeMatch: '/archive' },
 			// { text: "笔记", link: firstNoteItemLink, activeMatch: '/notes/' },
 			{ text: "赞助", link: "/support-me", activeMatch: '/support-me' },

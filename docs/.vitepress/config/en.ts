@@ -17,6 +17,8 @@ export default defineConfig({
 			{ text: "Home", link: "/en/", activeMatch: '^/en/$' },
 			{ text: "Blog", link: "/en/blog", activeMatch: '^/en/blog(?:\\?.*)?$' },
 			{ text: "News", link: "/en/news", activeMatch: '^/en/news' },
+			{ text: "Arena", link: "/en/arena", activeMatch: '^/en/arena' },
+			{ text: "Products", link: "/en/products", activeMatch: '^/en/products' },
       { text: "Archive", link: "/en/archive/", activeMatch: '/en/archive/' },
 			// { text: "Notes", link: firstNoteItemLink, activeMatch: '/en/notes/' },
 			{ text: "Sponsor", link: "/en/support-me", activeMatch: '/en/support-me' },
