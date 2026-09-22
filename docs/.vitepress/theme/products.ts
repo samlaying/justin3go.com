@@ -19,6 +19,18 @@ export interface ProductEntry {
 // 最新在前（日期降序），录入流程见 .agents/skills/product-recorder/SKILL.md
 export const products: ProductEntry[] = [
   {
+    date: '2026-09-22',
+    product: 'Claude',
+    url: 'https://claude.ai',
+    category: 'chat',
+    kind: 'experience',
+    slug: 'claude',
+    note: {
+      zh: '这一周用 Claude Code 把博客改成三模块站点（新闻/竞技场/产品体验），改配置、写组件、跑测试在一段长对话里一气呵成。',
+      en: 'This week I rebuilt the blog into a three-module site (news / arena / products) with Claude Code — config, components and tests in one long conversation.',
+    },
+  },
+  {
     date: '2026-09-21',
     product: 'ChatGPT',
     url: 'https://chatgpt.com',
