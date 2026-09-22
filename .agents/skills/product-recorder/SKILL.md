@@ -14,7 +14,7 @@ description: >-
 
 # Product Recorder
 
-Maintain the site's AI product experience log: `docs/.vitepress/theme/products.ts` feeds `/products` and `/en/products` (time-flow, newest first, month-grouped). Two entry kinds: `experience` (真实上手) and `watch` (客观收录待体验).
+Maintain the site's AI product experience log: `docs/.vitepress/theme/products.ts` feeds `/products` and `/en/products` (time-flow, newest first, month-grouped). Two entry kinds: `experience` (真实上手) and `watch` (客观收录待体验). Substantial experiences also get a **product article** at `docs/products/<slug>.md` — the list's product name links to it (`slug` field); without an article the name stays plain text and the official site is only the small 「官网 ↗」 link.
 
 ## When This Skill Activates
 
@@ -49,15 +49,22 @@ Present in Chinese, then **STOP** — no file edit before confirmation:
 | 日期 | 产品 | 类别 | 类型(体验/关注) | 链接 | 备注 zh | note en |
 ```
 
-The note text is the thing being approved; show it in full. Gate re-arms on every revision.
+The note text is the thing being approved; show it in full. When an article will be created/updated, show the article draft (frontmatter + meta line + new section) in the same gate. Gate re-arms on every revision.
 
 ## Step 4: Edit on Confirmation
 
 Prepend to `products` keeping strict date-descending order, exact field order and quoting style of existing entries. Category must be one of `chat/coding/image/video/audio/agent/search/other`. Touch nothing else.
 
+**Product article** (when the experience is substantial — a few sentences of real take or more):
+
+- If the product has no article yet: create `docs/products/<slug>.md` (slug = lowercase kebab of the product name, e.g. `cursor`) with frontmatter `layout: doc` + `title: <Product> 体验` + `description`, then `# <Product> 体验`, a meta line `> 官网：[<domain>](<url>) · 类别：<label>`, and the first `## YYYY-MM-DD <小节标题>` section. Comments stay enabled (no isNoComment) — this is a normal doc page.
+- If an article exists: append the new experience as a new `## YYYY-MM-DD <小节标题>` section at the top of the sections (below the meta line), newest first.
+- Set `slug` on the entry (tests enforce: slug only on `experience` entries, and article file must exist — no dangling links, no orphan articles).
+- The article content is an organized rendering of the user's own words — the no-ghost-writing rule applies unchanged.
+
 ## Step 5: Self-Check
 
-Mirror of `tests/products-list.test.mjs`: dates match `^\d{4}-\d{2}-\d{2}$` and array stays descending; urls `https://`; `note.zh/en` both non-empty; kind/category enums valid; no duplicate `date+product+kind`. Then `npm test`.
+Mirror of `tests/products-list.test.mjs`: dates match `^\d{4}-\d{2}-\d{2}$` and array stays descending; urls `https://`; `note.zh/en` both non-empty; kind/category enums valid; no duplicate `date+product+kind`; slug (if set) is kebab-case, experience-only, and `docs/products/<slug>.md` exists; no orphan md under `docs/products/`. Then `npm test`.
 
 ## Step 6: Report and Publish
 
@@ -67,7 +74,8 @@ Report what was added. Remind: `/products` and `/en/products` pick the file up a
 
 | Mistake | Fix |
 |---|---|
-| Ghost-wrote an experience note | Revert via git; re-ask the user for their real take |
+| Ghost-wrote an experience note or article section | Revert via git; re-ask the user for their real take |
+| Set a slug with no article file (or orphan article) | Fix the pair together — tests will catch it |
 | watch note slipped into subjective feelings | Rewrite as objective before commit |
 | Edited before the gate | Revert via git; the gate is non-negotiable |
 | Wrong or dead product url | Verify against the official site before commit |

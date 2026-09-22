@@ -13,6 +13,7 @@ export interface ProductEntry {
   category: ProductCategory
   kind: ProductKind
   note: { zh: string; en: string }
+  slug?: string                   // 有体验文章时填（docs/products/<slug>.md），列表产品名链到站内文章
 }
 
 // 最新在前（日期降序），录入流程见 .agents/skills/product-recorder/SKILL.md

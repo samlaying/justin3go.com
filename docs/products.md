@@ -15,7 +15,12 @@ isNoBackBtn: true
   <article v-for="item in group" :key="item.date + item.product + item.kind" class="product-row">
     <time>{{ item.date }}</time>
     <div>
-      <a :href="item.url" target="_blank" rel="noopener noreferrer">{{ item.product }} <span aria-hidden="true">↗</span></a>
+      <!-- 产品名只在有站内体验文章（slug）时才是链接；官网一律走右侧小链接 -->
+      <span class="product-name">
+        <a v-if="item.slug" :href="`/products/${item.slug}`">{{ item.product }}</a>
+        <template v-else>{{ item.product }}</template>
+        <a class="official-link" :href="item.url" target="_blank" rel="noopener noreferrer">官网 ↗</a>
+      </span>
       <span class="product-meta">{{ categoryLabel(item.category, 'zh') }} · {{ kindLabel(item.kind, 'zh') }}</span>
       <p>{{ item.note.zh }}</p>
     </div>
@@ -55,16 +60,26 @@ const monthGroups = groupProductsByMonth(sortProductsDesc(products));
 		color: var(--vp-c-text-2);
 	}
 
-	a {
+	.product-name {
 		font-size: 16px;
 		font-weight: 550;
-		text-decoration: none;
 
-		span {
-			font-size: 13px;
-			opacity: 0.55;
-			margin-left: 2px;
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				color: var(--vp-c-brand-1);
+			}
 		}
+	}
+
+	.official-link {
+		margin-left: 10px;
+		font-size: 11px;
+		font-weight: 400;
+		color: var(--vp-c-text-3);
+		text-decoration: none;
 
 		&:hover {
 			color: var(--vp-c-brand-1);

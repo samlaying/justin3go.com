@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { existsSync, readdirSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 import { products } from '../docs/.vitepress/theme/products.ts'
 import { categoryLabel, groupProductsByMonth, kindLabel, sortProductsDesc } from '../docs/.vitepress/theme/utils/productList.ts'
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const articlesDir = path.join(repoRoot, 'docs', 'products')
 
 const entries = [
   { date: '2026-09-01', product: 'A', url: 'https://a.com', category: 'chat', kind: 'watch', note: { zh: 'x', en: 'x' } },
@@ -44,5 +50,20 @@ test('seed data stays valid: descending dates, https urls, enums, bilingual note
     const key = `${item.date}+${item.product}+${item.kind}`
     assert.ok(!seen.has(key), `duplicate date+product+kind: ${key}`)
     seen.add(key)
+    if (item.slug) {
+      assert.match(item.slug, /^[a-z0-9-]+$/)
+      assert.equal(item.kind, 'experience', 'slug only allowed on experience entries')
+      assert.ok(existsSync(path.join(articlesDir, `${item.slug}.md`)), `missing article for slug: ${item.slug}`)
+    }
+  }
+})
+
+test('every product article on disk is referenced by at least one entry slug', () => {
+  if (!existsSync(articlesDir)) return
+  const referenced = new Set(products.filter(item => item.slug).map(item => item.slug))
+  for (const file of readdirSync(articlesDir)) {
+    if (!file.endsWith('.md')) continue
+    const slug = file.replace(/\.md$/, '')
+    assert.ok(referenced.has(slug), `orphan article not referenced by any entry: ${file}`)
   }
 })

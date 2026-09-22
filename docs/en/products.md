@@ -15,7 +15,11 @@ isNoBackBtn: true
   <article v-for="item in group" :key="item.date + item.product + item.kind" class="product-row">
     <time>{{ item.date }}</time>
     <div>
-      <a :href="item.url" target="_blank" rel="noopener noreferrer">{{ item.product }} <span aria-hidden="true">↗</span></a>
+      <!-- No EN article mirrors yet: name stays plain text; link it to /en/products/<slug> when mirrors exist -->
+      <span class="product-name">
+        <template>{{ item.product }}</template>
+        <a class="official-link" :href="item.url" target="_blank" rel="noopener noreferrer">site ↗</a>
+      </span>
       <span class="product-meta">{{ categoryLabel(item.category, 'en') }} · {{ kindLabel(item.kind, 'en') }}</span>
       <p>{{ item.note.en }}</p>
     </div>
@@ -55,16 +59,26 @@ const monthGroups = groupProductsByMonth(sortProductsDesc(products));
 		color: var(--vp-c-text-2);
 	}
 
-	a {
+	.product-name {
 		font-size: 16px;
 		font-weight: 550;
-		text-decoration: none;
 
-		span {
-			font-size: 13px;
-			opacity: 0.55;
-			margin-left: 2px;
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				color: var(--vp-c-brand-1);
+			}
 		}
+	}
+
+	.official-link {
+		margin-left: 10px;
+		font-size: 11px;
+		font-weight: 400;
+		color: var(--vp-c-text-3);
+		text-decoration: none;
 
 		&:hover {
 			color: var(--vp-c-brand-1);
