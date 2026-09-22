@@ -12,9 +12,14 @@
 				</div>
 			</li>
 		</ol>
-		<a class="news-all-link" :href="withBase(locale === 'en' ? '/en/news' : '/news')">
-			{{ locale === 'en' ? 'View all' : '查看全部' }} <span aria-hidden="true">→</span>
-		</a>
+		<div class="news-links">
+			<a class="news-all-link" :href="withBase(locale === 'en' ? '/en/news' : '/news')">
+				{{ locale === 'en' ? 'View all' : '查看全部' }} <span aria-hidden="true">→</span>
+			</a>
+			<a class="news-all-link" :href="withBase(locale === 'en' ? '/en/arena' : '/arena')">
+				{{ locale === 'en' ? 'Model Arena' : '模型竞技场' }} <span aria-hidden="true">→</span>
+			</a>
+		</div>
 	</div>
 </template>
 
@@ -43,7 +48,8 @@ const topNews = computed(() => sortNewsDesc(news).slice(0, 6));
 .profile-news li > div > a:hover .news-arrow { color: var(--home-accent, var(--vp-c-brand-1)); transform: translate(2px, -2px); }
 .news-meta { display: block; margin-top: 5px; font: 10px var(--vp-font-family-mono); color: var(--vp-c-text-3); }
 .profile-news p { margin: 7px 0 0; font-size: 13px; line-height: 1.8; color: var(--vp-c-text-2); }
-.news-all-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 32px; font-size: 13px; color: var(--home-accent, var(--vp-c-brand-1)); }
+.news-links { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 32px; }
+.news-all-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--home-accent, var(--vp-c-brand-1)); }
 .news-all-link span { transition: transform .18s ease; }
 .news-all-link:hover span { transform: translateX(3px); }
 @media (max-width: 640px) { .profile-news li { grid-template-columns: 40px minmax(0, 1fr); gap: 0 12px; } }
