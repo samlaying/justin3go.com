@@ -208,6 +208,16 @@ export function createSideBarZH() {
 				items: [],
 			},
 		].map((item, i) => (!i ? item : { ...item, collapsed: true })),
+		"/building/": [
+			{
+				text: "构建线",
+				collapsed: false,
+				items: [
+					{ text: "HUNT0", link: "/building/hunt0/" },
+					{ text: "本站", link: "/building/site/" },
+				],
+			},
+		],
   }
 }
 
@@ -421,5 +431,15 @@ export function createSideBarEN() {
 				items: [],
 			},
 		].map((item, i) => (!i ? item : { ...item, collapsed: true })),
+		"/en/building/": [
+			{
+				text: "Build Logs",
+				collapsed: false,
+				items: [
+					{ text: "HUNT0", link: "/en/building/hunt0/" },
+					{ text: "This Site", link: "/en/building/site/" },
+				],
+			},
+		],
   }
 }

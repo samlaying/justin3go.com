@@ -3,7 +3,6 @@ import { type DefaultTheme, defineConfig } from 'vitepress'
 import { createSideBarZH } from "../theme/utils/createSideBar";
 
 const sideBarConfig = createSideBarZH();
-// const firstNoteItemLink = sideBarConfig['/notes/'][0].items[0].link
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,18 +15,24 @@ export default defineConfig({
     nav: [
 			{ text: "首页", link: "/", activeMatch: '^/$' },
 			{ text: "博客", link: "/blog", activeMatch: '^/blog(?:\\?.*)?$' },
-			{ text: "新闻", link: "/news", activeMatch: '^/news' },
-			{ text: "竞技场", link: "/arena", activeMatch: '^/arena' },
-			{ text: "产品体验", link: "/products", activeMatch: '^/products' },
-			{ text: "归档", link: "/archive", activeMatch: '/archive' },
-			// { text: "笔记", link: firstNoteItemLink, activeMatch: '/notes/' },
-			{ text: "赞助", link: "/support-me", activeMatch: '/support-me' },
+			{ text: "学习", link: "/learning", activeMatch: '^/(learning|notes)' },
+			{ text: "构建记录", link: "/building", activeMatch: '^/building' },
+			{
+				text: "AI 实验室",
+				activeMatch: '^/(news|arena|products)',
+				items: [
+					{ text: "新闻", link: "/news" },
+					{ text: "竞技场", link: "/arena" },
+					{ text: "产品体验", link: "/products" },
+				],
+			},
     ],
     footer: {
       message: 'Copyright © 2022-present <a href="https://justin3go.com/">sam</a>.' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/#projects">个人项目</a>' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/#contact">联系方式</a>' +
-			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/friends">友情链接</a>',
+			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/friends">友情链接</a>' +
+			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/support-me">赞助</a>',
       
       // copyright: 'Copyright © 2022-present <a href="https://justin3go.com/about">sam</a>.',
     },

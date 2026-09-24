@@ -3,7 +3,6 @@ import { defineConfig} from 'vitepress'
 import { createSideBarEN } from "../theme/utils/createSideBar";
 
 const sideBarConfig = createSideBarEN();
-// const firstNoteItemLink = sideBarConfig['/en/notes/'][0].items[0].link
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,18 +15,24 @@ export default defineConfig({
     nav: [
 			{ text: "Home", link: "/en/", activeMatch: '^/en/$' },
 			{ text: "Blog", link: "/en/blog", activeMatch: '^/en/blog(?:\\?.*)?$' },
-			{ text: "News", link: "/en/news", activeMatch: '^/en/news' },
-			{ text: "Arena", link: "/en/arena", activeMatch: '^/en/arena' },
-			{ text: "Products", link: "/en/products", activeMatch: '^/en/products' },
-      { text: "Archive", link: "/en/archive/", activeMatch: '/en/archive/' },
-			// { text: "Notes", link: firstNoteItemLink, activeMatch: '/en/notes/' },
-			{ text: "Sponsor", link: "/en/support-me", activeMatch: '/en/support-me' },
+			{ text: "Learning", link: "/en/learning", activeMatch: '^/en/(learning|notes)' },
+			{ text: "Building", link: "/en/building", activeMatch: '^/en/building' },
+			{
+				text: "AI Lab",
+				activeMatch: '^/en/(news|arena|products)',
+				items: [
+					{ text: "News", link: "/en/news" },
+					{ text: "Arena", link: "/en/arena" },
+					{ text: "Products", link: "/en/products" },
+				],
+			},
     ],
     footer: {
       message: 'Copyright © 2022-present <a href="https://justin3go.com/en/">sam</a>.' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/#projects">Projects</a>' +
 			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/#contact">Contact</a>' +
-			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/friends">Friends</a>',
+			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/friends">Friends</a>' +
+			'&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/en/support-me">Support</a>',
       
       // copyright: 'Copyright © 2022-present <a href="https://justin3go.com/about">sam</a>.',
     },

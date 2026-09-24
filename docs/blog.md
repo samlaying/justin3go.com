@@ -14,6 +14,7 @@ isNoBackBtn: true
   <a v-for="item in BLOG_TYPES" :key="item.value" :href="filterUrl(item.value)" :aria-current="selectedType === item.value ? 'page' : undefined">
     {{ item.label }}
   </a>
+  <a class="archive-link" href="/archive/">按时间归档 →</a>
 </nav>
 <template v-for="post in curPosts" :key="post.url">
   <h2 :id="post.title" class="post-title">
@@ -133,6 +134,13 @@ const onCurrentChange: PaginationProps["onCurrentChange"] = (
 .blog-filters a[aria-current="page"] {
 	border-color: var(--vp-c-brand-1);
 	color: var(--vp-c-brand-1);
+}
+
+.archive-link {
+	margin-left: auto;
+	align-self: center;
+	font-size: 13px;
+	color: var(--vp-c-text-3);
 }
 
 .mr-2 {
