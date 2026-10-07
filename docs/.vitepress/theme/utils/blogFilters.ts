@@ -1,5 +1,6 @@
 export const BLOG_TYPES = [
   { value: 'all', label: '全部', labelEn: 'All' },
+  { value: 'competitor-analysis', label: '竞品分析', labelEn: 'Competitor analysis' },
   { value: 'product-analysis', label: '产品分析', labelEn: 'Product analysis' },
   { value: 'ai-practice', label: 'AI 产品实践', labelEn: 'AI practice' },
   { value: 'tech-learning', label: '技术学习', labelEn: 'Tech learning' },
@@ -12,7 +13,10 @@ export type ArticleType = Exclude<BlogType, 'all'>
 
 const TYPE_RULES: Array<{ type: ArticleType; terms: string[] }> = [
   { type: 'llm-paper', terms: ['论文', 'paper', 'arxiv', 'research paper'] },
-  { type: 'product-analysis', terms: ['产品', 'product', '竞品', 'competitor', '评测', 'review', 'launch', 'directory'] },
+  // 竞品分析必须排在产品分析之前：两者共用「产品」语境，但竞品是更窄的一类，
+  // 先匹配先返回，所以更窄的规则要放前面。
+  { type: 'competitor-analysis', terms: ['竞品', 'competitor', '横评', '对比评测'] },
+  { type: 'product-analysis', terms: ['产品', 'product', '评测', 'review', 'launch', 'directory'] },
   { type: 'ai-practice', terms: ['vibe coding', 'prompt', 'harness', 'skill', 'loop engineering', 'coding agent', 'agent workflow'] },
   { type: 'tech-learning', terms: ['javascript', 'typescript', 'vue', 'react', 'css', 'python', 'rust', 'nestjs', 'django', 'redis', 'sql', '数据库', '算法'] },
   { type: 'code', terms: ['代码', 'code', 'github', '实现', 'snippet'] },

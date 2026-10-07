@@ -133,7 +133,11 @@ dist
 docs/.vitepress/dist
 cache
 
+# netlify cli state
+.netlify/
+
 # local agent symlinks and editor configs
 .claude/
 agent/
 .cursor/
+.claude/plans/myagents/

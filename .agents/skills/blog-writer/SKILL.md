@@ -84,6 +84,7 @@ Write the file exactly in this shape:
 ---
 title: <中文标题>        # 含 ：或引号时整体加单引号
 date: YYYY-MM-DD         # 不加引号，与路径一致
+# type: competitor-analysis   # 可选，仅竞品分析专栏文章需要（见下）
 tags:
   - Tag1
   - Tag2                 # 3-8 个
@@ -106,6 +107,8 @@ Two hard invariants (the only format rules restated here):
 
 1. Exactly **two** `<!-- DESC SEP -->` markers with the summary between them — `posts.data.mts` extracts the excerpt via `split('<!-- DESC SEP -->')[1]`.
 2. Frontmatter `date` == path `YYYY/MM/DD`.
+
+**The competitor-analysis column is a blog category, not a separate module.** `/benchmark` and the homepage section filter posts by `type: competitor-analysis`, so a piece of 竞品分析 is filed by writing that `type` in the frontmatter — no data file, no recorder skill, nothing to register. Without the explicit `type`, `inferBlogType` only picks the column up when the title or a tag contains 竞品 / competitor / 横评 / 对比评测, so **set it explicitly**. Other valid types live in `BLOG_TYPES` (`utils/blogFilters.ts`); a typo silently drops the post off the column, and `tests/posts-data.test.mjs` will catch it.
 
 Images: insert user-supplied URLs as-is. For images the user hasn't uploaded yet, use `![中文描述](https://oss.justin3go.com/blogs/TODO-<kebab-desc>.png)` and add each to the pending list reported in Step 9. Alt text is always a descriptive Chinese sentence. This step produces the **draft** — the next pass de-AI-flavors it.
 

@@ -8,9 +8,9 @@ const posts = [
   { title: 'Legacy', date: { time: 1 } },
 ]
 
-test('defines the five supported blog content types', () => {
+test('defines the six supported blog content types', () => {
   assert.deepEqual(BLOG_TYPES.filter(item => item.value !== 'all').map(item => item.value), [
-    'product-analysis', 'ai-practice', 'tech-learning', 'code', 'llm-paper',
+    'competitor-analysis', 'product-analysis', 'ai-practice', 'tech-learning', 'code', 'llm-paper',
   ])
 })
 
@@ -38,4 +38,13 @@ test('infers legacy article types conservatively from explicit metadata and sign
   assert.equal(inferBlogType({ title: 'HUNT0 上线了', tags: ['Product', 'Launch'] }), 'product-analysis')
   assert.equal(inferBlogType({ title: '我把 Harness Engineering 提炼成了 SKILL', tags: ['Prompt Engineering', 'Skill'] }), 'ai-practice')
   assert.equal(inferBlogType({ title: '一篇普通随笔', tags: [] }), undefined)
+})
+
+test('routes competitor signals to competitor-analysis, ahead of product-analysis', () => {
+  assert.equal(inferBlogType({ type: 'competitor-analysis', title: 'Anything', tags: [] }), 'competitor-analysis')
+  assert.equal(inferBlogType({ title: '五款 AI 个人助理竞品横评', tags: [] }), 'competitor-analysis')
+  assert.equal(inferBlogType({ title: 'Notion vs Obsidian', tags: ['Competitor'] }), 'competitor-analysis')
+  // 「产品」这个宽类不能被竞品规则吃光：没有竞品信号的仍归产品分析
+  assert.equal(inferBlogType({ title: 'HUNT0 产品复盘', tags: [] }), 'product-analysis')
+  assert.equal(inferBlogType({ title: '产品设计随想', tags: [] }), 'product-analysis')
 })

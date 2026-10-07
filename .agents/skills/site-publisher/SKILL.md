@@ -34,7 +34,7 @@ Facts that matter:
 - **Deploy = push to `release`.** Nothing else triggers production. Cloudflare Pages watches the `release` branch and runs `npm run docs:build` on every push.
 - **Work happens on `dev`** (or a short-lived feature branch). The push is `git push origin dev:release` — a fast-forward of release to dev's HEAD.
 - **New pages need no registration.** VitePress routes = files: `docs/<path>.md` → `/<path>` (cleanUrls on). Sitemap picks up new URLs automatically; RSS is regenerated in `buildEnd` (posts only, latest 5 per locale); Algolia crawls on its own schedule.
-- **Content modules and their data files**: posts under `docs/posts/` (+ `docs/en/posts/` mirrors), AI news in `docs/.vitepress/theme/news.ts`, arena in `theme/arena.ts`, products in `theme/products.ts` (+ `docs/products/<slug>.md` articles) — editing any of them changes the site on the next deploy.
+- **Content modules and their data files**: posts under `docs/posts/` (+ `docs/en/posts/` mirrors), AI news in `docs/.vitepress/theme/news.ts`, arena in `theme/arena.ts`, products in `theme/products.ts` (+ `docs/products/<slug>.md` articles) — editing any of them changes the site on the next deploy. The competitor-analysis column (`/benchmark`) holds no data file of its own: it filters posts by `type: competitor-analysis`, so a new analysis is just a post.
 - **Everything is static.** No server, no runtime secrets. The only moving part between commit and live is the Cloudflare Pages build.
 
 ## When This Skill Activates
