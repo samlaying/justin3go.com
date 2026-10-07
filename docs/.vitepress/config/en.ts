@@ -14,18 +14,11 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
 			{ text: "Home", link: "/en/", activeMatch: '^/en/$' },
+			{ text: "AI Radar", link: "/en/radar", activeMatch: '^/en/radar' },
+			{ text: "Competitor Analysis", link: "/en/benchmark", activeMatch: '^/en/benchmark' },
 			{ text: "Blog", link: "/en/blog", activeMatch: '^/en/blog(?:\\?.*)?$' },
 			{ text: "Learning", link: "/en/learning", activeMatch: '^/en/(learning|notes)' },
 			{ text: "Building", link: "/en/building", activeMatch: '^/en/building' },
-			{
-				text: "AI Lab",
-				activeMatch: '^/en/(news|arena|products)',
-				items: [
-					{ text: "News", link: "/en/news" },
-					{ text: "Arena", link: "/en/arena" },
-					{ text: "Products", link: "/en/products" },
-				],
-			},
     ],
     footer: {
       message: 'Copyright © 2022-present <a href="https://justin3go.com/en/">sam</a>.' +

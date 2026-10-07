@@ -4,8 +4,13 @@ import { withBase } from 'vitepress'
 import PaperJourney from './PaperJourney.vue'
 import ProfileProjects from './ProfileProjects.vue'
 import ProfileNews from './ProfileNews.vue'
+import ProfileBenchmark from './ProfileBenchmark.vue'
+import ProfileRadar from './ProfileRadar.vue'
 import ProfileTimeline from './ProfileTimeline.vue'
 import ContactImageDialog from './ContactImageDialog.vue'
+import { data as postsZh } from '../posts.data.mts'
+import { data as postsEn } from '../posts-en.data.mts'
+import { selectBenchmarkPosts } from '../utils/benchmarkList'
 
 const props = withDefaults(defineProps<{ locale?: 'zh' | 'en' }>(), { locale: 'zh' })
 const en = computed(() => props.locale === 'en')
@@ -24,8 +29,10 @@ const copy = computed(() => en.value ? {
   intro: 'Write code. Collect moments.',
   detail: 'Independent projects, photography, and badminton. Turning curiosity into things I make, and ordinary days into moments I keep.',
   work: 'Explore my work', blog: 'Read the blog',
-  nav: ['Work', 'News', 'About', 'Journey', 'Contact'],
+  nav: ['Work', 'Competitor analysis', 'Radar', 'News', 'About', 'Journey', 'Contact'],
   workTitle: 'Made to be used.', workIntro: 'Small ideas, real products. A selection of the tools and experiments I keep building.',
+  benchmarkTitle: 'Same problem, who actually solved it.', benchmarkIntro: 'One standard, run across different products: no hype, only reproducible differences.',
+  radarTitle: 'What I’m watching.', radarIntro: 'Tech, products, and trends worth tracking: why now, what shifts in product design, and my take. Judgment, not news.',
   newsTitle: 'What just happened in AI.', newsIntro: 'Model releases, product updates, and industry moves — each with my one-line take. Updated weekly.',
   aboutTitle: 'More than a screen.',
   about: 'My background is in software engineering. What keeps me going is turning a real problem into something useful, then making it a little better.',
@@ -43,8 +50,10 @@ const copy = computed(() => en.value ? {
   intro: '写代码，也收集生活的碎片。',
   detail: '独立开发、摄影、羽毛球。把好奇心做成作品，把普通的一天认真收藏。',
   work: '看看我的作品', blog: '阅读博客',
-  nav: ['作品', '新闻', '关于', '经历', '联系'],
+  nav: ['作品', '竞品分析', '雷达', '新闻', '关于', '经历', '联系'],
   workTitle: '做些真正用得上的东西。', workIntro: '从一个小念头开始，做成可以打开、可以使用的产品。这里是我的一些实践。',
+  benchmarkTitle: '同一个问题，看谁真正解决了它。', benchmarkIntro: '同一套标准横向跑不同产品：不吹不黑，只记可复现的差别。',
+  radarTitle: '我最近在关注什么。', radarIntro: '持续追踪值得注意的技术、产品与趋势：为什么是现在、改变了什么产品设计、我的判断是什么。只记判断，不搬运新闻。',
   newsTitle: 'AI 圈，最近在发生什么。', newsIntro: '模型发布、产品更新与行业动态，附我的一句话点评。每周更新。',
   aboutTitle: '屏幕之外，也有热爱。',
   about: '我的职业背景是软件工程。比起罗列使用过的框架，我更在意有没有解决真实问题，把产品做出来，再一点点打磨好。',
@@ -57,14 +66,32 @@ const copy = computed(() => en.value ? {
   motto: '赢在执行力，贵在坚持。', journal: '阅读博客',
   photography: 'PHOTOGRAPHY / 摄影', badminton: 'BADMINTON / 羽毛球', top: '回到顶部', social: ['微信', 'X / 推特', 'GitHub', '掘金', '公众号']
 })
-const sections = ['projects', 'news', 'about', 'journey', 'contact']
-const socialUrls = ['https://oss.justin3go.com/weixin.jpg', 'https://x.com/Justin1024go', 'https://github.com/samlaying', 'https://juejin.cn/user/220366354020749/posts', 'https://oss.justin3go.com/wxgzh.jpg']
+const hasBenchmark = computed(() => selectBenchmarkPosts(en.value ? postsEn : postsZh).length > 0)
+const pad = (n: number) => String(n).padStart(2, '0')
+// 章节号：竞品分析有内容时它占 02，其后章节整体 +1；没有内容时首页编号与今天完全一致
+const chapter = (base: number) => pad(base + (hasBenchmark.value ? 1 : 0))
+
+// 章节导航与编号共用一份定义：竞品分析缺席时整项跳过，其余章节自然顺延
+const SECTION_ORDER = [
+  { id: 'projects', nav: 0 },
+  { id: 'benchmark', nav: 1 },
+  { id: 'radar', nav: 2 },
+  { id: 'news', nav: 3 },
+  { id: 'about', nav: 4 },
+  { id: 'journey', nav: 5 },
+  { id: 'contact', nav: 6 },
+]
+const sections = computed(() =>
+  SECTION_ORDER.filter(item => item.id !== 'benchmark' || hasBenchmark.value)
+    .map(item => ({ id: item.id, label: copy.value.nav[item.nav] }))
+)
+const socialUrls =['https://oss.justin3go.com/weixin.jpg', 'https://x.com/Justin1024go', 'https://github.com/samlaying', 'https://juejin.cn/user/220366354020749/posts', 'https://oss.justin3go.com/wxgzh.jpg']
 
 function readScroll() {
   frame = 0
   if (!page.value) return
-  let current = sections[0]
-  for (const id of sections) {
+  let current = sections.value[0].id
+  for (const { id } of sections.value) {
     const section = page.value.querySelector(`#${id}`)
     if (section && section.getBoundingClientRect().top < innerHeight * .45) current = id
   }
@@ -151,7 +178,7 @@ onUnmounted(() => {
 
     <nav class="section-nav" :aria-label="en ? 'On this page' : '页面章节'">
       <span class="chapter-caption" aria-hidden="true"><span class="chapter-cut">▰</span>{{ en ? 'SCENE SELECT' : '故事分镜' }}</span>
-      <div class="section-links vp-raw"><a v-for="(id, i) in sections" :key="id" :href="`#${id}`" :aria-current="active === id ? 'location' : undefined" @click="jumpTo($event, id)"><span class="nav-number">0{{ i + 1 }}</span>{{ copy.nav[i] }}</a></div>
+      <div class="section-links vp-raw"><a v-for="(item, i) in sections" :key="item.id" :href="`#${item.id}`" :aria-current="active === item.id ? 'location' : undefined" @click="jumpTo($event, item.id)"><span class="nav-number">{{ pad(i + 1) }}</span>{{ item.label }}</a></div>
       <a class="journal-link" :href="withBase(en ? '/en/blog' : '/blog')">{{ copy.journal }} <span aria-hidden="true">↗</span></a>
     </nav>
 
@@ -163,11 +190,35 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <section v-if="hasBenchmark" id="benchmark" class="home-section benchmark-section" aria-labelledby="benchmark-title">
+      <span id="竞品分析" class="anchor-alias"></span>
+      <div class="benchmark-copy">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">02 / COMPETITOR ANALYSIS</p>
+          <h2 id="benchmark-title">{{ copy.benchmarkTitle }}</h2>
+          <p class="section-description">{{ copy.benchmarkIntro }}</p>
+        </header>
+        <ProfileBenchmark :locale="locale" />
+      </div>
+    </section>
+
+    <section id="radar" class="home-section radar-section" aria-labelledby="radar-title">
+      <span id="AI雷达" class="anchor-alias"></span><span id="ai-radar" class="anchor-alias"></span>
+      <div class="radar-copy">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">{{ chapter(2) }} / AI RADAR</p>
+          <h2 id="radar-title">{{ copy.radarTitle }}</h2>
+          <p class="section-description">{{ copy.radarIntro }}</p>
+        </header>
+        <ProfileRadar :locale="locale" />
+      </div>
+    </section>
+
     <section id="news" class="home-section news-section" aria-labelledby="news-title">
       <span id="AI动态" class="anchor-alias"></span><span id="ai-news" class="anchor-alias"></span>
       <div class="news-copy">
         <header class="section-heading" data-reveal>
-          <p class="eyebrow">02 / AI RADAR</p>
+          <p class="eyebrow">{{ chapter(3) }} / AI NEWS</p>
           <h2 id="news-title">{{ copy.newsTitle }}</h2>
           <p class="section-description">{{ copy.newsIntro }}</p>
         </header>
@@ -179,7 +230,7 @@ onUnmounted(() => {
       <span id="生活之外" class="anchor-alias"></span><span id="beyond-work" class="anchor-alias"></span>
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="photo" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy">
-        <header class="section-heading" data-reveal><p class="eyebrow">03 / OFF THE SCREEN</p><h2 id="about-title">{{ copy.aboutTitle }}</h2><p class="section-description">{{ copy.about }}</p></header>
+        <header class="section-heading" data-reveal><p class="eyebrow">{{ chapter(4) }} / OFF THE SCREEN</p><h2 id="about-title">{{ copy.aboutTitle }}</h2><p class="section-description">{{ copy.about }}</p></header>
         <article class="life-card camera-card" data-reveal>
           <div class="landscape-print" aria-hidden="true">
             <svg viewBox="0 0 440 180" fill="none"><path class="sky" d="M0 0h440v180H0z"/><circle cx="327" cy="52" r="23"/><path class="mountain-back" d="m0 143 103-82 86 73 78-87 173 132H0Z"/><path class="mountain-front" d="m0 168 155-74 96 69 72-46 117 62H0Z"/><path class="landscape-line" d="M26 157c118-3 184 2 274 7s87-8 113-11"/></svg>
@@ -194,7 +245,7 @@ onUnmounted(() => {
     <section id="play" class="home-section story-spread art-left play-section" data-paper-section="badminton" aria-labelledby="play-title">
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="badminton" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy badminton-card">
-        <p class="eyebrow">03 / A DIFFERENT RHYTHM</p>
+        <p class="eyebrow">{{ chapter(4) }} / A DIFFERENT RHYTHM</p>
         <h2 id="play-title">{{ copy.sport }}</h2>
         <p class="section-description">{{ copy.sportBody }}</p>
         <div class="court-note">
@@ -210,7 +261,7 @@ onUnmounted(() => {
       <span id="经历" class="anchor-alias"></span><span id="experience" class="anchor-alias"></span>
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="walk" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy">
-        <header class="section-heading" data-reveal><p class="eyebrow">04 / THE JOURNEY</p><h2 id="journey-title">{{ copy.journeyTitle }}</h2><p class="section-description">{{ copy.journeyIntro }}</p></header>
+        <header class="section-heading" data-reveal><p class="eyebrow">{{ chapter(5) }} / THE JOURNEY</p><h2 id="journey-title">{{ copy.journeyTitle }}</h2><p class="section-description">{{ copy.journeyIntro }}</p></header>
         <ProfileTimeline :locale="locale" /><p class="future-note">{{ copy.future }}</p>
       </div>
     </section>
@@ -220,7 +271,7 @@ onUnmounted(() => {
       <div class="scene-visual" aria-hidden="true"><div class="scene-anchor" data-paper-anchor><PaperJourney inline-scene="chat" :motion="motion" :locale="locale" /></div></div>
       <div class="spread-copy contact-letter">
         <span class="letter-corner" aria-hidden="true">↗</span>
-        <p class="eyebrow">05 / SAY HELLO</p><h2 id="contact-title">{{ copy.contactTitle }}</h2><p class="contact-intro">{{ copy.contactIntro }}</p>
+        <p class="eyebrow">{{ chapter(6) }} / SAY HELLO</p><h2 id="contact-title">{{ copy.contactTitle }}</h2><p class="contact-intro">{{ copy.contactIntro }}</p>
         <a class="email-link" href="mailto:just@justin3go.com">just@justin3go.com <span aria-hidden="true">↗</span></a>
         <div class="social-links"><template v-for="(url, i) in socialUrls" :key="url"><ContactImageDialog v-if="i === 0 || i === 4" :src="url" :label="copy.social[i]" :en="en" /><a v-else :href="url" target="_blank" rel="noopener noreferrer">{{ copy.social[i] }} <span aria-hidden="true">↗</span></a></template></div>
         <p class="letter-signature">See you around,<br><span>sam</span></p>
@@ -313,6 +364,10 @@ onUnmounted(() => {
 .play-section .spread-copy { padding-top: 42px; }
 .news-section { padding-block: 150px; }
 .news-copy { max-width: 780px; }
+.benchmark-section { padding-block: 150px; }
+.benchmark-copy { max-width: 780px; }
+.radar-section { padding-block: 150px; }
+.radar-copy { max-width: 780px; }
 .court-note { position: relative; margin-top: 42px; padding: 30px 30px 25px; background: var(--paper-sheet); transform: rotate(1.5deg); clip-path: polygon(0 1%,20% 0,37% 1%,58% 0,79% 2%,100% 0,99% 100%,80% 98%,59% 100%,39% 98%,18% 100%,0 99%); }
 .court-sketch { width: 100%; max-height: 180px; stroke: var(--home-accent); stroke-width: 1; opacity: .5; }.court-flight { stroke-width: 2; stroke-dasharray: 6 6; }
 .court-note p { font-size: 16px; margin-top: 15px; line-height: 1.6; }.court-note > span:last-child { font-size: 12px; color: var(--vp-c-text-2); line-height: 2; }.note-pin { position: absolute; width: 60px; height: 20px; background: color-mix(in srgb, var(--home-accent) 15%, var(--vp-c-bg)); top: 0; left: 38%; transform: rotate(-8deg); }

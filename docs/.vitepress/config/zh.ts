@@ -14,18 +14,11 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
 			{ text: "首页", link: "/", activeMatch: '^/$' },
+			{ text: "AI 雷达", link: "/radar", activeMatch: '^/radar' },
+			{ text: "竞品分析", link: "/benchmark", activeMatch: '^/benchmark' },
 			{ text: "博客", link: "/blog", activeMatch: '^/blog(?:\\?.*)?$' },
 			{ text: "学习", link: "/learning", activeMatch: '^/(learning|notes)' },
 			{ text: "构建记录", link: "/building", activeMatch: '^/building' },
-			{
-				text: "AI 实验室",
-				activeMatch: '^/(news|arena|products)',
-				items: [
-					{ text: "新闻", link: "/news" },
-					{ text: "竞技场", link: "/arena" },
-					{ text: "产品体验", link: "/products" },
-				],
-			},
     ],
     footer: {
       message: 'Copyright © 2022-present <a href="https://justin3go.com/">sam</a>.' +
